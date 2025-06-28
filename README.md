@@ -36,3 +36,112 @@ Topic Modeling (c‑TF‑IDF) → 4 social categories
 Logistic Regression → Topic Weights
 ↓
 S‑Index Calculation → Final Developer Ranking
+
+
+---
+
+## 📂 Repository Structure
+
+| Filename                                   | Purpose                                                        |
+|--------------------------------------------|----------------------------------------------------------------|
+| `01_scrape_avito_reviews.ipynb`            | Scraper for Avito user reviews (Playwright + Asyncio)           |
+| `02_scrape_cian_reviews.ipynb`             | Scraper for CIAN user reviews                                   |
+| `03_merge_scraped_reviews.ipynb`           | Combine, deduplicate and clean reviews                          |
+| `04_sentiment_classification_ruBERT.ipynb` | ruBERT‑based sentiment classification pipeline                  |
+| `05_topic_modeling_and_s_index.ipynb`      | Clustering, topic modeling and final S‑index calculation         |
+| `README.md`                                | Project overview                                                |
+
+---
+
+## 🧠 Sentiment Analysis
+
+We fine‑tuned **`ruBERT‑large`** from SberDevices to classify reviews as:
+
+* **Negative**
+* **Neutral**
+* **Positive**
+
+**Pre‑processing**: lemmatization (Natasha), tokenization, truncation  
+**Training strategy**  
+* Optimizer: `AdamW` + weight decay  
+* Scheduler: warm‑up steps → linear decay  
+* Class imbalance: `Focal Loss` + `WeightedSampler`  
+* Metric: macro‑F1 (≈ **0.82**)  
+* Hyper‑parameter tuning: **Optuna**, 5‑Fold stratified CV
+
+---
+
+## 🧵 Topic Modeling (c‑TF‑IDF)
+
+We grouped user reviews into interpretable **social‑responsibility topics**:
+
+* 👥 Customer Interaction  
+* 🏘️ Housing Quality  
+* 🏞️ Local Infrastructure Impact  
+* 🛠️ Labor Conditions  
+
+**Steps**
+
+1. Vectorization: `TF‑IDF`  
+2. Clustering: `KMeans`, silhouette‑based _K_ selection  
+3. Topic modeling: **c‑TF‑IDF** (class‑based TF‑IDF for interpretability)  
+4. Weighting: `LogisticRegression` to estimate each topic’s contribution to the overall sentiment → used as topic weight  
+
+---
+
+## 🧮 S‑Index Calculation
+\[
+S \;=\;\Bigl(\;\sum_{i=1}^{n} w_i \cdot P_i\Bigr)\times100
+\]
+
+* \(w_i\) — weight of topic *i* (from logistic regression)  
+* \(P_i\) — percentage of **positive** mentions in topic *i*
+
+The resulting **S‑index** reflects overall **customer‑perceived social responsibility**.
+
+---
+
+## 🛠️ Stack
+
+| Area               | Tech                                               |
+|--------------------|----------------------------------------------------|
+| Web scraping       | **Playwright**, **Asyncio**, **Beautifulsoap**     |
+| NLP preprocessing  | Natasha, Lemmatization                             |
+| Classification     | ruBERT‑large, PyTorch, 🤗 Transformers, Optuna     |
+| Clustering & topics| Scikit‑learn, c‑TF‑IDF, (optional UMAP)            |
+| Dashboarding       | Power BI                                           |
+| Collaboration      | Git, GitHub, Jupyter Notebook                      |
+
+---
+
+## 📎 The best 10 developers by S-index
+
+| # | Developer            | **S-Score** | Avg. Rating | Houses Built | Estate Segment(s)              | Avg. Price *(RUB / m²)* | Years on Market |
+|---|----------------------|------------:|------------:|-------------:|--------------------------------|------------------------:|----------------:|
+| 1 | October Group        | **5.00**    | 4.91        | 0            | Business                       | 637 960                | 3               |
+| 2 | FORMA                | 4.14        | 4.84        | 5            | Premium                        | 1 033 485              | 4               |
+| 3 | Hals-Development     | 4.08        | 4.72        | 35           | Business                       | 261 663                | 31              |
+| 4 | Element              | 4.00        | 4.83        | 3            | Business; Premium              | 607 759                | 8               |
+| 5 | DONSTROY             | 4.00        | 4.70        | 137          | Comfort; Business; Premium     | 837 629                | 31              |
+
+
+---
+
+## 🔗 Repository
+
+<https://github.com/Viktoriia1928/s-score_for_developers>
+
+---
+
+## 🏁 Results
+
+* ✔️ Fully automated & reproducible pipeline  
+* ✔️ Modern NLP stack (ruBERT + c‑TF‑IDF)  
+* ✔️ Actionable ESG‑style metric derived from real user feedback  
+
+---
+
+## 📬 Contacts
+
+* ✉️ budyak.kirill@edu.hse.ru  
+* GitHub: <https://github.com/Viktoriia1928>
