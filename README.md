@@ -1,5 +1,3 @@
-# S-score for estate developers
-
 # 🏗️ S-Index for Real Estate Developers
 
 **Course project — HSE, 2025**  
@@ -19,3 +17,22 @@ To develop an interpretable, data‑driven system that:
 * Extracts key discussion topics through **c‑TF‑IDF**  
 * Computes an **S‑index** using weighted sentiment scores for each topic
 
+---
+
+## 🧱 Pipeline Overview
+
+Avito + CIAN Reviews
+↓
+Web Scraping (Playwright + Asyncio)
+↓
+Text Cleaning & Lemmatization (Natasha)
+↓
+Sentiment Classification (ruBERT‑large, F1 ≈ 0.82)
+↓
+Topic Clustering (TF‑IDF + KMeans)
+↓
+Topic Modeling (c‑TF‑IDF) → 4 social categories
+↓
+Logistic Regression → Topic Weights
+↓
+S‑Index Calculation → Final Developer Ranking
