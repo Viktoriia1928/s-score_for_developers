@@ -21,35 +21,35 @@ To develop an interpretable, data‑driven system that:
 
 ## 🧱 Pipeline Overview
 
-Avito & CIAN Reviews
-        │
-        ▼
-  Web Scraping │ Playwright + Asyncio
-        │
-        ▼
-  Text Cleaning & Lemmatization │ Natasha
-        │
-        ▼
-  Sentiment Model │ ruBERT-large  (Macro F1 ≈ 0.82)
-        │
-        ▼
-  Vectorisation │ TF-IDF
-        │
-        ▼
-  Topic Clustering │ K-Means  (K = 6)
-        │
-        ▼
-  Topic Keywords │ c-TF-IDF → 4 social categories
-        │
-        ▼
-  Topic Weights │ Logistic Regression
-        │
-        ▼
-  S-Index Calculation
-        │
-        ▼
-  Final Developer Ranking ✅
+1.Collect reviews
+Sources: Avito & CIAN developer pages (≈ 18 k reviews)
 
+2. Web-scrape the pages
+Stack: Playwright + asyncio (handles dynamic JS & pagination)
+
+3. Clean & lemmatise text
+Library: Natasha (Russian morphology)
+
+4. Classify sentiment
+Model: ruBERT-large → Macro F1 ≈ 0.82 (3 classes)
+
+5. Vectorise reviews
+TF-IDF (word & bigram features)
+
+6. Cluster topics
+K-Means (K = 6) — each review gets exactly one topic label
+
+7. Extract topic keywords
+c-TF-IDF → concise, interpretable labels → 4 social categories
+
+8. Derive topic weights
+Logistic Regression on sentiment × topic ⇒ weight wₖ
+
+9. Compute S-Index
+Weighted (pos – neg) share per topic → developer-level score
+
+10. Rank developers
+Final leaderboard + Power BI dashboard ✅
 
 ---
 
