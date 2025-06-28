@@ -103,13 +103,13 @@ The resulting **S‑index** reflects overall **customer‑perceived social respo
 
 ## 🛠️ Stack
 
-| Area               | Tech                                               |
+| Stage              | Tech                                               |
 |--------------------|----------------------------------------------------|
-| Web scraping       | **Playwright**, **Asyncio**, **Beautifulsoap**     |
-| NLP preprocessing  | Natasha, Lemmatization                             |
+| Web scraping       | Playwright, Asyncio**, Beautifulsoap               |
+| NLP preprocessing  | Natasha, sentence_transformers                     |
 | Classification     | ruBERT‑large, PyTorch, 🤗 Transformers, Optuna     |
-| Clustering & topics| Scikit‑learn, c‑TF‑IDF, (optional UMAP)            |
-| Dashboarding       | Power BI                                           |
+| Clustering & topics| Scikit‑learn (K-Means/HDBSCAN ), c‑TF‑IDF, UMAP    |
+| S-index calculation| Power BI                                           |
 | Collaboration      | Git, GitHub, Jupyter Notebook                      |
 
 ---
