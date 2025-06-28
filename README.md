@@ -1,8 +1,8 @@
 # 🏗️ S-Index for Real Estate Developers
 
 **Course project — HSE, 2025**  
-**Authors**: Viktoriia1928, Kirill Budyak  
-**Role**: Data Analyst, NLP Engineer
+**Authors**: Viktoriia Korableva, Kirill Budyak  
+**Roles**: Data Analyst, ML-Engineer
 
 📊 _A complete ML pipeline for evaluating the **social responsibility index (S-index)** of real estate developers based on user reviews from Russian real‑estate platforms._
 
@@ -21,22 +21,18 @@ To develop an interpretable, data‑driven system that:
 
 ## 🧱 Pipeline Overview
 
-Avito + CIAN Reviews
-↓
-Web Scraping (Playwright + Asyncio)
-↓
-Text Cleaning & Lemmatization (Natasha)
-↓
-Sentiment Classification (ruBERT‑large, F1 ≈ 0.82)
-↓
-Topic Clustering (TF‑IDF + KMeans)
-↓
-Topic Modeling (c‑TF‑IDF) → 4 social categories
-↓
-Logistic Regression → Topic Weights
-↓
-S‑Index Calculation → Final Developer Ranking
-
+graph TD
+    A[Avito & CIAN<br>Reviews] --> B[Scraping<br>Playwright&nbsp;+&nbsp;Asyncio]
+    B --> C[Lemmatization<br>Natasha]
+    C --> D[Sentiment Model<br>ruBERT-large<br>(F1≈0.82)]
+    D --> E[Vectorisation<br>TF-IDF]
+    E --> F[Clustering<br>K-Means (K=6)]
+    F --> G[Topic Keywords<br>c-TF-IDF<br>→ 4 social categories]
+    G --> H[Logistic Regression<br>Topic Weights]
+    H --> I[S-Index Calculation]
+    I --> J[Final Developer Ranking]
+    classDef box fill:#F8F9FA,stroke:#0d47a1,color:#0d47a1,stroke-width:1px;
+    class A,B,C,D,E,F,G,H,I,J box
 
 ---
 
@@ -44,12 +40,12 @@ S‑Index Calculation → Final Developer Ranking
 
 | Filename                                   | Purpose                                                        |
 |--------------------------------------------|----------------------------------------------------------------|
-| `01_scrape_avito_reviews.ipynb`            | Scraper for Avito user reviews (Playwright + Asyncio)           |
-| `02_scrape_cian_reviews.ipynb`             | Scraper for CIAN user reviews                                   |
-| `03_merge_scraped_reviews.ipynb`           | Combine, deduplicate and clean reviews                          |
-| `04_sentiment_classification_ruBERT.ipynb` | ruBERT‑based sentiment classification pipeline                  |
-| `05_topic_modeling_and_s_index.ipynb`      | Clustering, topic modeling and final S‑index calculation         |
-| `README.md`                                | Project overview                                                |
+| `01_scrape_avito_reviews.ipynb`            | Scraper for Avito user reviews (BeautifulSoap)                 |
+| `02_scrape_cian_reviews.ipynb`             | Scraper for CIAN user reviews (Playwright + Asyncio)           |
+| `03_merge_scraped_reviews.ipynb`           | Combine, deduplicate and clean reviews                         |
+| `04_sentiment_classification_ruBERT.ipynb` | ruBERT‑based sentiment classification pipeline                 |
+| `05_topic_modeling_and_s_index.ipynb`      | Clustering, topic modeling and final S‑index calculation       |
+| `README.md`                                | Project overview                                               |
 
 ---
 
@@ -66,7 +62,7 @@ We fine‑tuned **`ruBERT‑large`** from SberDevices to classify reviews as:
 * Optimizer: `AdamW` + weight decay  
 * Scheduler: warm‑up steps → linear decay  
 * Class imbalance: `Focal Loss` + `WeightedSampler`  
-* Metric: macro‑F1 (≈ **0.82**)  
+* Metric: macro‑F1 (≈ **0.84**)  
 * Hyper‑parameter tuning: **Optuna**, 5‑Fold stratified CV
 
 ---
@@ -83,7 +79,7 @@ We grouped user reviews into interpretable **social‑responsibility topics**:
 **Steps**
 
 1. Vectorization: `TF‑IDF`  
-2. Clustering: `KMeans`, silhouette‑based _K_ selection  
+2. Clustering: `KMeans`, elbow-method _K_ selection  
 3. Topic modeling: **c‑TF‑IDF** (class‑based TF‑IDF for interpretability)  
 4. Weighting: `LogisticRegression` to estimate each topic’s contribution to the overall sentiment → used as topic weight  
 
@@ -109,7 +105,7 @@ The resulting **S‑index** reflects overall **customer‑perceived social respo
 | NLP preprocessing  | Natasha, sentence_transformers                     |
 | Classification     | ruBERT‑large, PyTorch, 🤗 Transformers, Optuna     |
 | Clustering & topics| Scikit‑learn (K-Means/HDBSCAN ), c‑TF‑IDF, UMAP    |
-| S-index calculation| Power BI                                           |
+| S-index calculation| sklearn (LogisticRegression, LinearRegression, OHE)|
 | Collaboration      | Git, GitHub, Jupyter Notebook                      |
 
 ---
@@ -136,7 +132,7 @@ The resulting **S‑index** reflects overall **customer‑perceived social respo
 ## 🏁 Results
 
 * ✔️ Fully automated & reproducible pipeline  
-* ✔️ Modern NLP stack (ruBERT + c‑TF‑IDF)  
+* ✔️ NLP stack (ruBERT + c‑TF‑IDF)  
 * ✔️ Actionable ESG‑style metric derived from real user feedback  
 
 ---
