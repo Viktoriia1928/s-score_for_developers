@@ -112,14 +112,17 @@ We grouped user reviews into interpretable **social‑responsibility topics**:
 ---
 
 ## 🧮 S‑Index Calculation
-\[
-S \;=\;\Bigl(\;\sum_{i=1}^{n} w_i \cdot P_i\Bigr)\times100
-\]
 
-* \(w_i\) — weight of topic *i* (from logistic regression)  
-* \(P_i\) — percentage of **positive** mentions in topic *i*
+$$
+S 
+= 100 \;\times\; \sum_{k=1}^{n} w_k \,\bigl(P^{+}_{k}-P^{-}_{k}\bigr)
+$$  
 
-The resulting **S‑index** reflects overall **customer‑perceived social responsibility**.
+* **$w_k$** — weight of topic *k* (learned by logistic regression)  
+* **$P^{+}_{k}$**, **$P^{-}_{k}$** — shares of positive / negative mentions in topic *k*  
+
+> The resulting **S-index** captures overall customer-perceived social responsibility.
+
 
 ---
 
