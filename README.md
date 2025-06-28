@@ -114,7 +114,7 @@ We grouped user reviews into interpretable **social‑responsibility topics**:
 ## 🧮 S‑Index Calculation
 
 $$
-S \;=\; 100 \times \sum_{k=1}^{n} w_k \,\bigl(P^{+}_{k}-P^{-}_{k}\bigr)
+S \=\; 100 \times \sum_{k=1}^{n} w_k \,\bigl(P^{+}_{k}-P^{-}_{k}\bigr)
 $$
 
 * **$w_k$** — weight of topic *k* (learned by logistic regression)  
