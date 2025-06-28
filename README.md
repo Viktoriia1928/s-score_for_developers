@@ -21,18 +21,35 @@ To develop an interpretable, data‑driven system that:
 
 ## 🧱 Pipeline Overview
 
-graph TD
-    A[Avito & CIAN<br>Reviews] --> B[Scraping<br>Playwright&nbsp;+&nbsp;Asyncio]
-    B --> C[Lemmatization<br>Natasha]
-    C --> D[Sentiment Model<br>ruBERT-large<br>(F1≈0.82)]
-    D --> E[Vectorisation<br>TF-IDF]
-    E --> F[Clustering<br>K-Means (K=6)]
-    F --> G[Topic Keywords<br>c-TF-IDF<br>→ 4 social categories]
-    G --> H[Logistic Regression<br>Topic Weights]
-    H --> I[S-Index Calculation]
-    I --> J[Final Developer Ranking]
-    classDef box fill:#F8F9FA,stroke:#0d47a1,color:#0d47a1,stroke-width:1px;
-    class A,B,C,D,E,F,G,H,I,J box
+Avito & CIAN Reviews
+        │
+        ▼
+  Web Scraping │ Playwright + Asyncio
+        │
+        ▼
+  Text Cleaning & Lemmatization │ Natasha
+        │
+        ▼
+  Sentiment Model │ ruBERT-large  (Macro F1 ≈ 0.82)
+        │
+        ▼
+  Vectorisation │ TF-IDF
+        │
+        ▼
+  Topic Clustering │ K-Means  (K = 6)
+        │
+        ▼
+  Topic Keywords │ c-TF-IDF → 4 social categories
+        │
+        ▼
+  Topic Weights │ Logistic Regression
+        │
+        ▼
+  S-Index Calculation
+        │
+        ▼
+  Final Developer Ranking ✅
+
 
 ---
 
