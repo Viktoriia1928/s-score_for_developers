@@ -165,5 +165,6 @@ S = 100 × Σ (wₖ × (Pₖ⁺ − Pₖ⁻))
 
 ## 📬 Contacts
 
-* ✉️ budyak.kirill@edu.hse.ru  
+* ✉️ budyak.kirill@edu.hse.ru
+* ✉️ vyukorableval@edu.hse.ru
 * GitHub: <https://github.com/Viktoriia1928>
